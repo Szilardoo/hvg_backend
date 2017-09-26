@@ -2,7 +2,7 @@
   "name": "hvgb",
   "version": "1.0.0",
   "description": "",
-  "main": "hvg_backend.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node hvg_backend.js"
+    "start": "node server.js"
   },  
   "repository": {
     "type": "git",
