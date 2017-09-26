@@ -18,5 +18,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node hvg_backend.js"
-  }
+  },  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Szilardoo/hvg_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Szilardoo/hvg_backend/issues"
+  },
+  "homepage": "https://github.com/Szilardoo/hvg_backend#readme"
 }
