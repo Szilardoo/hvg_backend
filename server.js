@@ -6,6 +6,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const pg = require('pg');
+const fs = require('fs');
 
 const app = express()
 
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 
 const table = process.env.TABLE;
 
+
+// adatbázis beállítás
 const config = {
   user: process.env.user,
   database: process.env.database,
@@ -25,19 +28,19 @@ const config = {
 };
 
 const pool = new pg.Pool(config);
-
+//behúzza az adatbázis adatait
 module.exports.query = function (text, values, callback) {
   console.log('query:', text, values);
   return pool.query(text, values, callback);
 };
 
+
 app.put('/', function (req, res) {
 	const mailAdress = req.body.mail;
 	const name = req.body.name;
 	const role = req.body.role;
-	const subject = req.body.subject;
-  	const content = req.body.content;
-
+	
+  	//új sor a db-be
   	pool.query('INSERT INTO ' + table + ' (name, email, role) VALUES($1, $2, $3);', [name , mailAdress, role], function(err, result) {
     	if(err) {
         	res.json({ "error": err.message });
@@ -46,6 +49,7 @@ app.put('/', function (req, res) {
 				if(err) {
 					res.send(err.message)
 				} else {
+					// email config
 					var transporter = nodemailer.createTransport(smtpTransport({
 					  service: 'gmail',
 					  host: 'smtp.gmail.com',
@@ -55,24 +59,27 @@ app.put('/', function (req, res) {
 					  }
 					}));
 
-					console.log(content);
-				    let mailOptions = {
-				        from: '<doczi.szilard@gmail.com>', // sender address
-				        to: mailAdress, // list of receivers
-				        subject: subject, // Subject line
-				        text: '4iG', // plain text body
-				        html: content  // html body
-				    };
+					fs.readFile("./attachments/"+ role +".doc", function (err, data) {
 
-				    // send mail with defined transport object
-				    transporter.sendMail(mailOptions, (error, info) => {
-				        if (error) {
-				            return console.log(error);
-				        }
-				        console.log('Message sent: %s', info.messageId);
-				        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-				        res.send('OK, mail sended!')
-				    });
+					    let mailOptions = {
+					        from: '<doczi.szilard@gmail.com>', // sender address
+					        to: mailAdress, // list of receivers
+					        subject: "Állásajánlat információ", // Subject line
+					        text: '4iG', // plain text body
+					        html: '<h3>Kedves '+name+'!</h2><p> Köszönjük hogy jelentkezett ajánlatunkra, ezuttal küldjük önnek a további információkat.</p>', // html body
+					        attachments: [{'filename': role+".doc", 'content': data}]
+					    };
+
+					    // send mail with defined transport object
+					    transporter.sendMail(mailOptions, (error, info) => {
+					        if (error) {
+					            return console.log(error);
+					        }
+					        console.log('Message sent: %s', info.messageId);
+					        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+					        res.send('OK, mail sended!')
+					    });
+					})
 				}
 			});
         }	
