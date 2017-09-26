@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,18 +14,13 @@
     "cors": "^2.8.4",
     "express": "^4.15.5",
     "nodemailer": "^4.1.1",
-    "nodemailer-smtp-transport": "^2.7.4"
+    "nodemailer-smtp-transport": "^2.7.4",
+    "pg": "^7.3.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Szilardoo/hvg_backend.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Szilardoo/hvg_backend/issues"
   },
