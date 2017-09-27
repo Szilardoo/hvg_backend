@@ -108,7 +108,7 @@ app.put('/'+process.env.DATAENDPOINT, function (req, res) {
 					  }
 					}));
 					
-					let csvContent = "Jelentkező Neve: , E-mail Címe: , Feladatkör: ,\n";			
+					let csvContent = "data:text/csv;charset=utf-8,%EF%BB%BF,Jelentkező Neve: , E-mail Címe: , Feladatkör: ,\n";			
 
 					for(var i = 0; i < result.rows.length; i++) { 
 						csvContent += result.rows[i].name+','+result.rows[i].email+','+result.rows[i].role+'\n'; 
