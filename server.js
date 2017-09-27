@@ -106,14 +106,14 @@ app.get('/admin', function (req, res) {
 					  }
 					}));
 
-					console.log(result.rows)
-
-					var sendString;
-					for(var i = 0; i < result.rows.length; i++) { sendString += '<p>'+ result.rows[i] +'</p>' }
-
+					var sendString = '<h3>A jelentkezők Listája: </h3><br><ul>';
+					for(var i = 0; i < result.rows.length; i++) { 
+						sendString += '<li> Név: '+ result.rows[i].name + ' E-mail cím: '+ result.rows[i].email + ' Jelentkezett: '+ result.rows[i].role +'</li>' 
+					}
+					sendString += '</ul>'
 				    let mailOptions = {
 				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
-				        to: 'doczi.szilard@gmail.com', // list of receivers
+				        to: 'doczi.szilard@gmail.com, varga.gabor@axis.hu', // list of receivers
 				        subject: "Jelentkezők", // Subject line
 				        text: '4iG', // plain text body
 				        html: sendString // html body
