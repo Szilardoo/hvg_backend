@@ -106,7 +106,7 @@ app.get('/admin', function (req, res) {
 					  }
 					}));
 					
-					let csvContent = "Jelentkező Neve: , E-mail Címe: , Feladatkör: ,";			
+					let csvContent = "Jelentkező Neve: , E-mail Címe: , Feladatkör: ,\n";			
 
 					for(var i = 0; i < result.rows.length; i++) { 
 						csvContent += result.rows[i].name+','+result.rows[i].email+','+result.rows[i].role+'\n'; 
