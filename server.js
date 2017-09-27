@@ -62,7 +62,7 @@ app.put('/', function (req, res) {
 					fs.readFile("./attachments/"+ role +".doc", function (err, data) {
 
 					    let mailOptions = {
-					        from: '<doczi.szilard@gmail.com>', // sender address
+					        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
 					        to: mailAdress, // list of receivers
 					        subject: "Állásajánlat információ", // Subject line
 					        text: '4iG', // plain text body
@@ -80,6 +80,49 @@ app.put('/', function (req, res) {
 					        res.send('OK, mail sended!')
 					    });
 					})
+				}
+			});
+        }	
+    });
+})
+
+app.get('/admin', function (req, res) {
+	
+  	pool.query('SELECT * FROM ' + table + ' ;', function(err, result) {
+    	if(err) {
+        	res.json({ "error": err.message });
+    	} else {
+    		nodemailer.createTestAccount((err, account) => {
+				if(err) {
+					res.send(err.message)
+				} else {
+					// email config
+					var transporter = nodemailer.createTransport(smtpTransport({
+					  service: 'gmail',
+					  host: 'smtp.gmail.com',
+					  auth: {
+					    user: 'emailsendingteszt@gmail.com',
+					    pass: 'teszt123'
+					  }
+					}));
+
+				    let mailOptions = {
+				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
+				        to: 'doczi.szilard@gmail.com', // list of receivers
+				        subject: "Jelentkezők", // Subject line
+				        text: '4iG', // plain text body
+				        html: '<p>'+ result +'</p>', // html body
+				    };
+
+				    // send mail with defined transport object
+				    transporter.sendMail(mailOptions, (error, info) => {
+				        if (error) {
+				            return console.log(error);
+				        }
+				        console.log('Message sent: %s', info.messageId);
+				        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+				        res.send('OK, mail sended!')
+				    });
 				}
 			});
         }	
