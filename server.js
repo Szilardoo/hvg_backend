@@ -35,10 +35,10 @@ module.exports.query = function (text, values, callback) {
 };
 
 
-	app.put('/', function (req, res) {
-		const mailAdress = req.body.mail;
-		const name = req.body.name;
-		const role = req.body.role;
+app.put('/', function (req, res) {
+	const mailAdress = req.body.mail;
+	const name = req.body.name;
+	const role = req.body.role;
 	
   	//új sor a db-be
   	pool.query('INSERT INTO ' + table + ' (name, email, role) VALUES($1, $2, $3);', [name , mailAdress, role], function(err, result) {
@@ -86,9 +86,11 @@ module.exports.query = function (text, values, callback) {
     });
 })
 
-app.get('/'+process.env.DATAENDPOINT, function (req, res) {
-	
-  	pool.query('SELECT * FROM ' + table + ' ;', function(err, result) {
+app.put('/'+process.env.DATAENDPOINT, function (req, res) {
+	const code = req.body.code;
+
+	if(code === process.env.CODE) {
+		pool.query('SELECT * FROM ' + table + ' ;', function(err, result) {
     	if(err) {
         	res.json({ "error": err.message });
     	} else {
@@ -133,6 +135,9 @@ app.get('/'+process.env.DATAENDPOINT, function (req, res) {
 			});
         }	
     });
+	} else {
+		res.send("ERROR!!");
+	}
 })
 
 app.listen(process.env.PORT || 3000, function() {
