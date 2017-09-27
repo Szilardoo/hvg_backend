@@ -120,7 +120,7 @@ app.put('/'+process.env.DATAENDPOINT, function (req, res) {
 				        subject: "Jelentkezők", // Subject line
 				        text: '4iG', // plain text body
 				        html: "<h3>A jelentkezők Listája.</h3>", // html body
-					    attachments: [{'filename': "Jelentkezok.csv", 'content': encodeURI(csvContent)}]
+					    attachments: [{'filename': "Jelentkezok.csv", 'content': csvContent}]
 				    	
 				    };
 
