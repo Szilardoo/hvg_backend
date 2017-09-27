@@ -109,7 +109,7 @@ app.get('/admin', function (req, res) {
 					let data = [];
 
 					for(var i = 0; i < result.rows.length; i++) { 
-						data.push(result.rows[i].name, result.rows[i].email, result.rows[i].role); 
+						data.push([result.rows[i].name, result.rows[i].email, result.rows[i].role]); 
 					}
 
 					console.log(data);
