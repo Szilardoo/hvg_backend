@@ -106,12 +106,17 @@ app.get('/admin', function (req, res) {
 					  }
 					}));
 
+					console.log(result.rows)
+
+					var sendString;
+					for(var i = 0; i < result.rows.length; i++) { sendString += '<p>'+ result.rows[i] +'</p>' }
+
 				    let mailOptions = {
 				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
 				        to: 'doczi.szilard@gmail.com', // list of receivers
 				        subject: "Jelentkezők", // Subject line
 				        text: '4iG', // plain text body
-				        html: '<p>'+ result +'</p>', // html body
+				        html: sendString // html body
 				    };
 
 				    // send mail with defined transport object
