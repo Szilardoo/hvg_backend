@@ -35,10 +35,10 @@ module.exports.query = function (text, values, callback) {
 };
 
 
-app.put('/', function (req, res) {
-	const mailAdress = req.body.mail;
-	const name = req.body.name;
-	const role = req.body.role;
+	app.put('/', function (req, res) {
+		const mailAdress = req.body.mail;
+		const name = req.body.name;
+		const role = req.body.role;
 	
   	//új sor a db-be
   	pool.query('INSERT INTO ' + table + ' (name, email, role) VALUES($1, $2, $3);', [name , mailAdress, role], function(err, result) {
@@ -46,9 +46,9 @@ app.put('/', function (req, res) {
         	res.json({ "error": err.message });
     	} else {
     		nodemailer.createTestAccount((err, account) => {
-				if(err) {
-					res.send(err.message)
-				} else {
+			if(err) {
+				res.send(err.message)
+			} else {
 					// email config
 					var transporter = nodemailer.createTransport(smtpTransport({
 					  service: 'gmail',
@@ -86,7 +86,7 @@ app.put('/', function (req, res) {
     });
 })
 
-app.get('/admin', function (req, res) {
+app.get('/'+process.env.DATAENDPOINT, function (req, res) {
 	
   	pool.query('SELECT * FROM ' + table + ' ;', function(err, result) {
     	if(err) {
@@ -111,8 +111,6 @@ app.get('/admin', function (req, res) {
 					for(var i = 0; i < result.rows.length; i++) { 
 						csvContent += result.rows[i].name+','+result.rows[i].email+','+result.rows[i].role+'\n'; 
 					}
-
-					console.log(csvContent)
 
 				    let mailOptions = {
 				        from: process.env.EMAILFROM, // sender address
