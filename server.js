@@ -112,6 +112,8 @@ app.get('/admin', function (req, res) {
 						data.push(result.rows[i].name, result.rows[i].email, result.rows[i].role); 
 					}
 
+					console.log(data);
+
 					let csvContent = "data:text/csv;charset=utf-8,";
 					data.forEach(function(infoArray, index){
 
