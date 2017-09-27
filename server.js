@@ -106,17 +106,28 @@ app.get('/admin', function (req, res) {
 					  }
 					}));
 
-					var sendString = '<h3>A jelentkezők Listája: </h3><br><ul>';
+					let data = [];
+
 					for(var i = 0; i < result.rows.length; i++) { 
-						sendString += '<li> Név: '+ result.rows[i].name + ' E-mail cím: '+ result.rows[i].email + ' Jelentkezett: '+ result.rows[i].role +'</li>' 
+						data.push(result.rows[i].name, result.rows[i].email, result.rows[i].role); 
 					}
-					sendString += '</ul>'
+
+					let csvContent = "data:text/csv;charset=utf-8,";
+					data.forEach(function(infoArray, index){
+
+					   dataString = infoArray.join(",");
+					   csvContent += index < data.length ? dataString+ "\n" : dataString;
+
+					}); 
+
 				    let mailOptions = {
 				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
 				        to: 'doczi.szilard@gmail.com, varga.gabor@axis.hu', // list of receivers
 				        subject: "Jelentkezők", // Subject line
 				        text: '4iG', // plain text body
-				        html: sendString // html body
+				        html: "<h3>A jelentkezők Listája.</h3>", // html body
+					    attachments: [{'filename': "Jelentkezok.csv", 'content': csvContent}]
+				    	
 				    };
 
 				    // send mail with defined transport object
