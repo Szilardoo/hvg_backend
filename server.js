@@ -101,8 +101,8 @@ app.get('/admin', function (req, res) {
 					  service: 'gmail',
 					  host: 'smtp.gmail.com',
 					  auth: {
-					    user: 'emailsendingteszt@gmail.com',
-					    pass: 'teszt123'
+					    user: process.env.email,
+					    pass: process.env.jelszo
 					  }
 					}));
 					
