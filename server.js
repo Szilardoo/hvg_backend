@@ -62,7 +62,7 @@ app.put('/', function (req, res) {
 					fs.readFile("./attachments/"+ role +".doc", function (err, data) {
 
 					    let mailOptions = {
-					        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
+					        from: process.env.EMAILFROM, // sender address
 					        to: mailAdress, // list of receivers
 					        subject: "Állásajánlat információ", // Subject line
 					        text: '4iG', // plain text body
@@ -115,8 +115,8 @@ app.get('/admin', function (req, res) {
 					console.log(csvContent)
 
 				    let mailOptions = {
-				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
-				        to: 'doczi.szilard@gmail.com, varga.gabor@axis.hu', // list of receivers
+				        from: process.env.EMAILFROM, // sender address
+				        to: process.env.APPLICANTSMAILTO, // list of receivers
 				        subject: "Jelentkezők", // Subject line
 				        text: '4iG', // plain text body
 				        html: "<h3>A jelentkezők Listája.</h3>", // html body
@@ -129,9 +129,7 @@ app.get('/admin', function (req, res) {
 				        if (error) {
 				            return console.log(error);
 				        }
-				        console.log('Message sent: %s', info.messageId);
-				        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-				        res.send('OK, mail sended!')
+				        	res.send('OK, mail sended!')
 				    });
 				}
 			});
