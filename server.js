@@ -105,22 +105,14 @@ app.get('/admin', function (req, res) {
 					    pass: 'teszt123'
 					  }
 					}));
-
-					let data = [];
+					
+					let csvContent = "data:text/csv;charset=utf-8,";			
 
 					for(var i = 0; i < result.rows.length; i++) { 
-						data.push([result.rows[i].name, result.rows[i].email, result.rows[i].role]); 
+						csvContent += result.rows[i].name+','+result.rows[i].email+','+result.rows[i].role+'\n'; 
 					}
 
-					console.log(data);
-
-					let csvContent = "data:text/csv;charset=utf-8,";
-					data.forEach(function(infoArray, index){
-
-					   dataString = infoArray.join(",");
-					   csvContent += index < data.length ? dataString+ "\n" : dataString;
-
-					}); 
+					console.log(csvContent)
 
 				    let mailOptions = {
 				        from: '"4iG Nyrt."<emailsendingteszt@gmail.com>', // sender address
