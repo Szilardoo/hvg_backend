@@ -66,7 +66,7 @@ app.put('/', function (req, res) {
 					        to: mailAdress, // list of receivers
 					        subject: "Állásajánlat információ", // Subject line
 					        text: '4iG', // plain text body
-					        html: '<h3>Kedves '+name+'!</h3><p> Köszönjük hogy jelentkezett ajánlatunkra, ezuttal küldjük önnek a további információkat.</p>', // html body
+					        html: '<h3>Kedves '+name+'!</h3><p> Köszönjük, hogy ellátogattál a HVG állásbörzén a 4iG standjára. Amennyiben álláshirdetésünk megfelel az elképzeléseidnek, a megpályázott munkakör megjelölésével küldd el CV-det Csapó Zsófia toborzási koordinátornak a zsofia.csapo@humansoft.hu e-mail címre.</p>', // html body
 					        attachments: [{'filename': role+".doc", 'content': data}]
 					    };
 
