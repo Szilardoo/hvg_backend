@@ -58,7 +58,7 @@ app.put('/', function (req, res) {
 					    pass: process.env.jelszo
 					  }
 					}));
-
+						
 					fs.readFile("./attachments/"+ role +".doc", function (err, data) {
 
 					    let mailOptions = {
